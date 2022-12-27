@@ -4,7 +4,7 @@ extern crate pnet_datalink;
 use crate::net;
 use std::{thread, time};
 use std::time::Instant;
-use std::net::{Ipv4Addr};
+use std::net::Ipv4Addr;
 use anyhow::{anyhow, Result};
 
 use pnet::packet::ethernet::EtherTypes;

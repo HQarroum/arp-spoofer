@@ -9,9 +9,9 @@ extern crate anyhow;
 
 use std::process;
 use std::{thread, time};
-use std::net::{Ipv4Addr};
+use std::net::Ipv4Addr;
 use std::sync::atomic::Ordering;
-use pnet_datalink::{NetworkInterface};
+use pnet_datalink::NetworkInterface;
 use atomic_enum::atomic_enum;
 
 mod opts;

@@ -1,7 +1,7 @@
 extern crate pnet_datalink;
 
 use std::net::{Ipv4Addr, IpAddr};
-use pnet_datalink::{NetworkInterface};
+use pnet_datalink::NetworkInterface;
 use anyhow::{Result, Context};
 
 /// Returns the IPv4 address associayted with the
