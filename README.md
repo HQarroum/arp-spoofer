@@ -7,6 +7,10 @@
 # arp-spoofer
 > A command-line tool to easily run a man-in-the-middle attack leveraging ARP cache poisoning.
 
+[![Build Status](https://app.travis-ci.com/HQarroum/arp-spoofer.svg?branch=master)](https://app.travis-ci.com/HQarroum/arp-spoofer)
+[![CodeFactor](https://www.codefactor.io/repository/github/hqarroum/arp-spoofer/badge)](https://www.codefactor.io/repository/github/hqarroum/arp-spoofer)
+
+
 Current version: **1.0.0**
 
 ## 📋 Table of content
