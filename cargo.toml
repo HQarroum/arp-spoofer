@@ -1,0 +1,22 @@
+[package]
+name = "arp-spoofer"
+version = "1.0.0"
+description = "A command-line tool to easily run a man-in-the-middle attack leveraging ARP cache poisoning."
+authors = ["Halim Qarroum"]
+edition = "2021"
+homepage = "https://github.com/HQarroum/arp-spoofer"
+repository = "https://github.com/HQarroum/arp-spoofer"
+readme = "README.md"
+license = "MIT"
+keywords = ["arp", "arp-cache-poisoning", "man-in-the-middle"]
+categories = ["command-line-utilities"]
+
+[dependencies]
+pnet = "0.31.0"
+pnet_datalink = "0.31.0"
+clap = { version = "4.0.32", features = ["derive", "cargo"] }
+indicatif = "0.17.2"
+console = "0.15.2"
+ctrlc = "3.2.4"
+atomic_enum = "0.2.0"
+anyhow = "1.0.68"
