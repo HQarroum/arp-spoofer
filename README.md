@@ -10,7 +10,6 @@
 [![Build Status](https://app.travis-ci.com/HQarroum/arp-spoofer.svg?branch=master)](https://app.travis-ci.com/HQarroum/arp-spoofer)
 [![CodeFactor](https://www.codefactor.io/repository/github/hqarroum/arp-spoofer/badge)](https://www.codefactor.io/repository/github/hqarroum/arp-spoofer)
 
-
 Current version: **1.0.0**
 
 ## 📋 Table of content
