@@ -1,6 +1,112 @@
+# Based on the "trust" template v0.1.2
+# https://github.com/japaric/trust/tree/v0.1.2
+
+dist: trusty
 language: rust
-before_script:
-  - rustup component add clippy
+services: docker
+sudo: required
+
+env:
+  global:
+    - CRATE_NAME=arp-spoofer
+
+matrix:
+  include:
+    # Android
+    - env: TARGET=aarch64-linux-android DISABLE_TESTS=1
+    - env: TARGET=arm-linux-androideabi DISABLE_TESTS=1
+    - env: TARGET=armv7-linux-androideabi DISABLE_TESTS=1
+    - env: TARGET=i686-linux-android DISABLE_TESTS=1
+    - env: TARGET=x86_64-linux-android DISABLE_TESTS=1
+
+    # iOS
+    - env: TARGET=aarch64-apple-ios DISABLE_TESTS=1
+      os: osx
+    - env: TARGET=armv7-apple-ios DISABLE_TESTS=1
+      os: osx
+    - env: TARGET=armv7s-apple-ios DISABLE_TESTS=1
+      os: osx
+    - env: TARGET=i386-apple-ios DISABLE_TESTS=1
+      os: osx
+    - env: TARGET=x86_64-apple-ios DISABLE_TESTS=1
+      os: osx
+
+    # Linux
+    - env: TARGET=aarch64-unknown-linux-gnu
+    - env: TARGET=arm-unknown-linux-gnueabi
+    - env: TARGET=armv7-unknown-linux-gnueabihf
+    - env: TARGET=i686-unknown-linux-gnu
+    - env: TARGET=i686-unknown-linux-musl
+    - env: TARGET=mips-unknown-linux-gnu
+    - env: TARGET=mips64-unknown-linux-gnuabi64
+    - env: TARGET=mips64el-unknown-linux-gnuabi64
+    - env: TARGET=mipsel-unknown-linux-gnu
+    - env: TARGET=powerpc-unknown-linux-gnu
+    - env: TARGET=powerpc64-unknown-linux-gnu
+    - env: TARGET=powerpc64le-unknown-linux-gnu
+    - env: TARGET=s390x-unknown-linux-gnu DISABLE_TESTS=1
+    - env: TARGET=x86_64-unknown-linux-gnu
+    - env: TARGET=x86_64-unknown-linux-musl
+
+    # OSX
+    - env: TARGET=i686-apple-darwin
+      os: osx
+    - env: TARGET=x86_64-apple-darwin
+      os: osx
+
+    # *BSD
+    - env: TARGET=i686-unknown-freebsd DISABLE_TESTS=1
+    - env: TARGET=x86_64-unknown-freebsd DISABLE_TESTS=1
+    - env: TARGET=x86_64-unknown-netbsd DISABLE_TESTS=1
+
+    # Windows
+    - env: TARGET=x86_64-pc-windows-gnu
+
+    # Testing other channels
+    - env: TARGET=x86_64-unknown-linux-gnu
+      rust: nightly
+    - env: TARGET=x86_64-apple-darwin
+      os: osx
+      rust: nightly
+
+before_install:
+  - set -e
+  - rustup self update
+
+install:
+  - sh ci/install.sh
+  - source ~/.cargo/env || true
+
 script:
-  - cargo clippy -- -D warnings
-  - cargo build --verbose --workspace
+  - bash ci/script.sh
+
+after_script: set +e
+
+before_deploy:
+  - sh ci/before_deploy.sh
+
+deploy:
+  api_key:
+    secure: "NLykURQppY3xDh3mgMWs/iJOnsSjHEUWVx7XKdIwuxRDCXAmnKrggV9lXEJjd7qNf06htBk9OCN1NLM6xAcIu8Snjij6uQ5ZIQ0Wf71gaLWc6vww64BVr+J4LWV8fQjr2QYKXGWY+K2UeAmsGDX4yyuytVcNAL5BsE2VUtt/0gXI1S0BD9Y7oCoRe40a8ajrV6vLa7NX6AqZyXIL8X0Art6ppGrP+VjInFla0tFqt+hjmpShf2EoEv9ON+A21wlUm0AwmQd7yK1ViOkHHNngpRF3jVctiMmOzE9RMh1hqFAGTXcmUXRB+YTjK5YFV3LpEietBEXnyEWZd0sFlPLfySLzkvaHro48cm5vmHkigXIsFkjWYN2X/b6lzbSogGqczUkcCJ3hA0hDfnAsxu666jn2tBXc20qcoUvNIvFrjdQVBHcauwn0tPtXND1fAu85tCBG4pMoEAjDR5IfozXCqxnaRQqZd1Sj9POQBQsMBE9oTYLgx2tQ7WkF7g1ywX6Ole3TTyKBm8WMh5z7vjSJkZ8z2iq5mYVy51C0+Y01m7PFhYyRVXuJZrzszyyvf+ZobuB15gOTJJjGCtSrsajl1GCSKGL3ZZrHYI6QDVFccRT7pj37NfusWcQYjWM6QR7crM2mYxRBNaEOubDc5T8nk3usAEvR15zOD1TbzEpA1Ys="
+  file_glob: true
+  file: $CRATE_NAME-$TRAVIS_TAG-$TARGET.*
+  on:
+    condition: $TRAVIS_RUST_VERSION = stable
+    tags: true
+  provider: releases
+  skip_cleanup: true
+
+cache: cargo
+before_cache:
+  # Travis can't cache files that are not readable by "others"
+  - chmod -R a+r $HOME/.cargo
+
+branches:
+  only:
+    # release tags
+    - /^v\d+\.\d+\.\d+.*$/
+    - master
+
+notifications:
+  email:
+    on_success: never
