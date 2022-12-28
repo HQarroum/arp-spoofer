@@ -15,12 +15,6 @@ environment:
     - TARGET: i686-pc-windows-msvc
     - TARGET: x86_64-pc-windows-msvc
 
-    # Testing other channels
-    - TARGET: x86_64-pc-windows-gnu
-      RUST_VERSION: nightly
-    - TARGET: x86_64-pc-windows-msvc
-      RUST_VERSION: nightly
-
 install:
   - ps: >-
       If ($env:TARGET -eq 'x86_64-pc-windows-gnu') {
@@ -51,13 +45,9 @@ before_deploy:
 
 deploy:
   artifact: /.*\.zip/
-  # TODO update `auth_token.secure`
-  # - Create a `public_repo` GitHub token. Go to: https://github.com/settings/tokens/new
-  # - Encrypt it. Go to https://ci.appveyor.com/tools/encrypt
-  # - Paste the output down here
   auth_token:
     secure: DxAJannXsT33akPBEEaLfbvvNCA7s9EY2LKS5u3fEq+ZIUkssKY7FBmzV91KYCKA
-  description: 'GitHub Authentication Token'
+  description: 'Artifact'
   on:
     RUST_VERSION: stable
     appveyor_repo_tag: true
@@ -72,10 +62,6 @@ branches:
     # Release tags
     - /^v\d+\.\d+\.\d+.*$/
     - main
-
-notifications:
-  - provider: Email
-    on_build_success: false
 
 # Building is done in the test phase, so we disable Appveyor's build phase.
 build: false
