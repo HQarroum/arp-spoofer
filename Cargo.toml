@@ -1,6 +1,6 @@
 [package]
 name = "arp-spoofer"
-version = "1.0.0"
+version = "1.0.1"
 description = "A command-line tool to easily run a man-in-the-middle attack leveraging ARP cache poisoning."
 authors = ["Halim Qarroum"]
 edition = "2021"

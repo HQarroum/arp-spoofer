@@ -11,7 +11,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/hqarroum/arp-spoofer/badge)](https://www.codefactor.io/repository/github/hqarroum/arp-spoofer)
 [![DeepSource](https://deepsource.io/gh/HQarroum/arp-spoofer.svg/?label=active+issues&show_trend=true&token=xNrQ_8ojvQjL9sfoCUQ1OXpd)](https://deepsource.io/gh/HQarroum/arp-spoofer/?ref=repository-badge)
 
-Current version: **1.0.0**
+Current version: **1.0.1**
 
 ## 📋 Table of content
 
