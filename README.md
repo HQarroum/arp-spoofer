@@ -82,10 +82,10 @@ Below is a list of the main external crates which `arp-spoof` depends on.
 
 Name                                         | Version | Description
 -------------------------------------------- | ------- | -----------
-[`pnet`](https://github.com/libpnet/libpnet) | 0.31.0  | libpnet is used as a way to build, send and receive packets on the datalink layer.
-[`clap`](https://github.com/clap-rs/clap)    | 4.0.32 | clap is used as a command-line argument management library.
-[`indicatif`](https://github.com/console-rs/indicatif) | 0.17.2 | indicatif is used as a console output management library.
-[`ctrlc`](https://github.com/Detegr/rust-ctrlc) | 3.2.4 | ctrlc is used to portably register hooks on ctrl-c.
+[`pnet`](https://github.com/libpnet/libpnet) | 0.35.0  | libpnet is used as a way to build, send and receive packets on the datalink layer.
+[`clap`](https://github.com/clap-rs/clap)    | 4.5.17 | clap is used as a command-line argument management library.
+[`indicatif`](https://github.com/console-rs/indicatif) | 0.17.8 | indicatif is used as a console output management library.
+[`ctrlc`](https://github.com/Detegr/rust-ctrlc) | 3.4.5 | ctrlc is used to portably register hooks on ctrl-c.
 
 ## 👀 See Also
 
