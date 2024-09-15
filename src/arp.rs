@@ -125,19 +125,20 @@ pub fn resolve_arp_host(
 
   let mut eth_buffer = [0u8; ETH_HEADER_SIZE];
   let mut arp_buffer = [0u8; ARP_HEADER_SIZE];
+  let source_mac     = interface.mac.unwrap();
 
   // Creating the ARP header.
   let mut arp_packet = arp!(
     &mut arp_buffer,
     ArpOperations::Request,
-    ArpHost { ip: source_ip, mac: interface.mac.unwrap() },
+    ArpHost { ip: source_ip, mac: source_mac },
     ArpHost { ip: target_ip, mac: MacAddr::zero() }
   );
 
   // Creating the Ethernet header.
   let eth_packet = eth!(
     &mut eth_buffer,
-    interface.mac.unwrap(),
+    source_mac,
     MacAddr::broadcast(),
     EtherTypes::Arp,
     arp_packet.packet_mut()
@@ -161,7 +162,7 @@ pub fn resolve_arp_host(
     // Verifying that the target and sender of the ARP packet
     // is an expected reply.
     if arp.get_operation() == ArpOperations::Reply
-      && arp.get_target_hw_addr() == interface.mac.unwrap()
+      && arp.get_target_hw_addr() == source_mac
       && arp.get_sender_proto_addr() == target_ip {
       return Ok(
         ArpHost { ip: target_ip, mac: arp.get_sender_hw_addr() }

@@ -12,12 +12,12 @@ keywords = ["arp", "arp-cache-poisoning", "man-in-the-middle"]
 categories = ["command-line-utilities"]
 
 [dependencies]
-pnet = "0.31.0"
-pnet_datalink = "0.31.0"
-clap = { version = "4.0.32", features = ["derive", "cargo"] }
-indicatif = "0.17.2"
-console = "0.15.2"
-ctrlc = "3.2.4"
-atomic_enum = "0.2.0"
-anyhow = "1.0.68"
+pnet = "0.35.0"
+pnet_datalink = "0.35.0"
+clap = { version = "4.5.17", features = ["derive", "cargo"] }
+indicatif = "0.17.8"
+console = "0.15.8"
+ctrlc = "3.4.5"
+atomic_enum = "0.3.0"
+anyhow = "1.0.88"
 
